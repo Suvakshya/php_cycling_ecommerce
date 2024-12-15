@@ -707,10 +707,12 @@ button:hover {
   text-decoration: none;
   margin-top: 10px;
   display: inline-block;
+  border: none;
 }
 
 .cart-table .remove-btn:hover {
   text-decoration: underline;
+  color: rgb(221, 53, 53);
 }
 
 .cart-table td input[type="number"] {

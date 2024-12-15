@@ -1,19 +1,41 @@
+<?php
+
+include('server/connection.php');
+
+if(isset($_GET['product_id'])){
+
+  $product_id=$_GET['product_id'];
+
+  $stmt = $conn->prepare("SELECT * FROM products WHERE product_id = ?");
+  $stmt->bind_param("i",$product_id);
+
+  $stmt->execute();
+ 
+  $product = $stmt->get_result();//[]
+
+}else{
+  header('location:index.php');//product id xena vaya home page ma redirec huxa
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cart</title>
+  <title>single_product</title>
   <!-- Font Awesome link -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
 
   <link rel="stylesheet" href="./assets/css/index.css">
+
 </head>
 
 <body>
-  <!------------------ Navbar ---------------------->
+  <!--------------- Navbar --------------------->
   <nav class="navbar">
     <div class="navbar-container">
       <img src="assets/imgs/logoo.png" class="logo" alt="Logo" />
@@ -36,67 +58,55 @@
           </li>
           <li class="nav-item icons">
             <a class="nav-link" href="./cart.html"><i class="fas fa-shopping-bag"></i></a>
-            <a class="nav-link" href="./account.html"><i class="fas fa-user"></i></a>
+            <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <!---------------------- Cart ----------------------->
-  <section class="cart-container ">
-    <div class="cart-container mt-5">
-      <h2 class="cart-font-weight-bolde">Your Cart</h2>
-    </div>
-    <table class="cart-table">
-      <tr>
-        <th>Product</th>
-        <th>Quantity</th>
-        <th>Subtotal</th>
-      </tr>
-      <tr>
-        <td>
-          <div class="cart-product-info">
-            <img src="assets/imgs/cycle1.jpeg" alt="">
-            <div>
-              <p>white shoes</p>
-              <small><span>$</span>155</small>
-              <br>
-              <a class="remove-btn" href="#">Remove</a>
-            </div>
-          </div>
-        </td>
-        <td>
-          <input type="number" value="1">
-          <a class="edit-btn" href="#">Edit</a>
-        </td>
-        <td>
-          <span>$</span>
-          <span class="card-product-price">155</span>
-        </td>
-      </tr>
-    </table>
+  <!------------- single product --------------->
 
-    <div class="cart-total">
-      <table>
-        <tr>
-          <td>Subtotal </td>
-          <td>$155</td>
-        </tr>
-        <tr>
-          <td>Total </td>
-          <td>$155</td>
-        </tr>
-      </table>
-    </div>
+  <section class="single-product">
+    <div class="single-product-container">
 
-    <div>
-      <button class="btn chekout-btn" onclick="window.location.href='Checkout.html'">Checkout</button>
-    </div>
+      <?php while($row= $product->fetch_assoc()){?>
 
+      <div class="single-image-container">
+        <img class="single-product-image" src="assets/imgs/<?php echo $row['product_image'] ?>" alt="">
+      </div>
+      <div class="single-product-details">
+        <h6>Men/Shoes</h6>
+        <h3 class="single-product-title"><?php echo $row['product_name']?></h3>
+        <h2 class="single-product-price">$<?php echo $row['product_price']?></h2>
+
+
+        <form method="POST" action="cart.php">
+          <input type="hidden" name="product_id" value="<?php echo $row['product_id'] ?>"/>
+          <input type="hidden" name="product_image" value="<?php echo $row['product_image'] ?>"/>
+          <input type="hidden" name="product_name" value="<?php echo $row['product_name'] ?>"/>
+          <input type="hidden" name="product_price" value="<?php echo $row['product_price'] ?>"/>
+
+        <div class="single-quantity-container">
+          <input type="number" name="product_quantity" value="1" class="single-quantity-input">
+        </div>
+        <button class="buy-btn" type="submit" name="add_to_cart">Add to Cart</button>
+      </form>
+      
+       
+        <h4 class="single-product-description-title">Product Details</h4>
+        <span class="single-product-description"><?php echo $row['product_description']?></span>
+      </div>
+
+      <?php }?>
+
+
+    </div>
   </section>
 
-  <!------------------- Footer ----------------------->
+
+
+  <!--------------- Footer --------------------->
   <footer class="footer-container">
     <div class="footer-content">
       <div class=" footer-logo">

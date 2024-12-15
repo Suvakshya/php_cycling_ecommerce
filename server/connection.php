@@ -1,11 +1,9 @@
 <?php
 
-$conn=mysqli_connect("localhost","root","","php_project") or die("couldn't connect to database");
+$conn = mysqli_connect("localhost","root","","php_project") or die("couldn't connect to database");
 
 
 ?>
 
 
 
-
-54: pasting the sql query in the datanbase 
