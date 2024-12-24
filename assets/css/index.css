@@ -1191,10 +1191,36 @@ button:hover {
   align-items: center;
   flex-direction: column;
 }
+.checkout-payment-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 300px;
+}
 
 .form-group {
   margin-bottom: 15px;
   width: 100%;
+}
+
+.chekout-btn {
+  width: 150px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  outline: none;
+  border: none;
+  background-color: #1d1d1d;
+  color: aliceblue;
+  padding: 13px 30px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+
+.chekout-btn:hover {
+  background-color: coral;
 }
 
 //----------------------contact ------------------//

@@ -1,3 +1,10 @@
+<?php
+session_start();
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +16,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
 
-  <link rel="stylesheet" href="./assets/css/index.css">
+  <link rel="stylesheet" href="../assets/css/index.css">
 
 </head>
 
@@ -18,14 +25,14 @@
   <!------------------ Navbar ---------------------->
   <nav class="navbar">
     <div class="navbar-container">
-      <img src="assets/imgs/logoo.png" class="logo" alt="Logo" />
+      <img src="../assets/imgs/logoo.png" class="logo" alt="Logo" />
       <!-- <button class="navbar-toggler" id="navbar-toggler"> -->
       <span class="navbar-toggler-icon"></span>
       </button>
       <div class="navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="./index.html">Home</a>
+            <a class="nav-link" href="../index.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./shop.html">Shop</a>
@@ -37,7 +44,7 @@
             <a class="nav-link" href="./contact.html">Contact Us</a>
           </li>
           <li class="nav-item icons">
-            <a class="nav-link" href="./cart.html"><i class="fas fa-shopping-bag"></i></a>
+            <a class="nav-link" href="./cart.php"><i class="fas fa-shopping-bag"></i></a>
             <a class="nav-link" href="./account.html"><i class="fas fa-user"></i></a>
           </li>
         </ul>
@@ -45,40 +52,22 @@
     </div>
   </nav>
 
-  <!----------------- checkout -------------------->
+  <!----------------- Payment -------------------->
 
   <section class="checkout-section">
     <div class="checkout-container ">
-      <h2 class="checkout-text">Check Out</h2>
+      <h2 class="checkout-text">Payment</h2>
       <hr class="checkout-hr">
     </div>
-    <div class=".checkout-form-container">
-      <form action="" id="register-form">
-
-        <div class="form-group">
-          <label for="">Name</label>
-          <input type="text" class="form-control" id="checkout-name" name="name" placeholder="Name" required />
-        </div>
-        <div class="form-group">
-          <label for="">Email</label>
-          <input type="text" class="form-control" id="checkout-email" name="email" placeholder="Email" required />
-        </div>
-        <div class="form-group">
-          <label for="">Phone</label>
-          <input type="text" class="form-control" id="checkout-phone" name="phone" placeholder="Phone " required />
-        </div>
-        <div class="form-group">
-          <label for="">City</label>
-          <input type="text" class="form-control" id="checkout-city" name="city" placeholder="City " required />
-        </div>
-        <div class="form-group">
-          <label for="">Address</label>
-          <input type="text" class="form-control" id="checkout-address" name="address" placeholder="Address" required />
-        </div>
-        <div class="form-group">
-          <input type="submit" class="btn" id="checkout-btn" value="Checkout" />
-        </div>
-      </form>
+    <div class=".checkout-payment-form-container" 
+    style="display: flex;
+           justify-content: center;
+           align-items: center;
+           flex-direction: column;
+           padding:10px">
+      <p><?php echo $_GET['order_status'];?></p>
+      <p>Total payment: <span style="color: coral; text:bold">$<?php echo $_SESSION['total'];?></span></p>
+      <input class="chekout-btn" type="submit" value="Pay Now">
     </div>
   </section>
 

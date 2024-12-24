@@ -1,3 +1,63 @@
+<?php
+session_start();
+include('server/connection.php');
+
+if (isset($_POST['register'])) {
+
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $confirmPassword = $_POST['confirmPassword'];
+
+    // If password doesn't match
+    if ($password !== $confirmPassword) {
+        header('location: register.php?error=Passwords do not match');
+        exit;
+    }
+    // If password is less than 6 characters
+    else if (strlen($password) < 6) {
+        header('location: register.php?error=Password must be at least 6 characters');
+        exit;
+    }
+
+    // Check if a user with this email already exists
+    $stmt1 = $conn->prepare("SELECT count(*) FROM users WHERE user_email=?");
+    $stmt1->bind_param('s', $email);
+    $stmt1->execute();
+    $stmt1->bind_result($num_rows);
+    $stmt1->store_result();
+    $stmt1->fetch();
+
+    // If a user is registered with this email, redirect to register page with error
+    if ($num_rows != 0) {
+        header('location: register.php?error=User with this email already exists');
+        exit;
+    } else {
+        // Create a new user
+        $stmt = $conn->prepare("INSERT INTO users (user_name, user_email, user_password) VALUES (?, ?, ?)");
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);  // Secure password hash
+        $stmt->bind_param('sss', $name, $email, $hashedPassword);
+
+        // If account was created successfully, redirect to account page
+        if ($stmt->execute()) {
+            $_SESSION['user_email'] = $email;
+            $_SESSION['user_name'] = $name;
+            $_SESSION['logged_in'] = true;
+            header('location: account.php?register=You registered successfully');
+            exit;
+        } else {
+            header('location: register.php?error=Could not create an account at the moment');
+            exit;
+        }
+    }
+    //if user has already registered  then take the user to the account page
+}else if(isset($_SESSION['logged_in'])){
+  header('location: account.php');
+  exit;
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,7 +111,9 @@
       <hr class="register-hr">
     </div>
     <div class=".register-form-container">
-      <form action="" id="register-form">
+      <form action="" id="register-form" method="POST" action="register.php">
+      <p style="color:red;"><?php if(isset($_GET['error'])){echo $_GET['error'];} ?></p>
+
 
         <div class="form-group">
           <label for="">Name</label>
@@ -68,14 +130,14 @@
         </div>
         <div class="form-group">
           <label for="">Confirm Password</label>
-          <input type="password" class="form-control" id="register-confirm-password" name="confirmpassword"
+          <input type="password" class="form-control" id="register-confirm-password" name="confirmPassword"
             placeholder="Confirm Password " required />
         </div>
         <div class="form-group">
-          <input type="submit" class="btn" id="Register-btn" value="Register" />
+          <input type="submit" class="btn" id="Register-btn" name="register" value="Register" />
         </div>
         <div class="form-group">
-          <a id="login-url" class="btn">Already have an account ? login</a>
+          <a id="login-url" href="login.php" class="btn">Already have an account ? login</a>
         </div>
       </form>
     </div>

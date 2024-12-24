@@ -1,18 +1,31 @@
+<?php
+session_start();
+if(!empty($_SESSION['cart']) && isset($_POST['checkout'])){
+  //let user in
+}else{
+  //send user to home page
+  header('location:index.php');
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Account</title>
+  <title>Checkout</title>
   <!-- Font Awesome link -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
 
   <link rel="stylesheet" href="./assets/css/index.css">
+
 </head>
 
 <body>
+
   <!------------------ Navbar ---------------------->
   <nav class="navbar">
     <div class="navbar-container">
@@ -23,7 +36,7 @@
       <div class="navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="./index.html">Home</a>
+            <a class="nav-link" href="./index.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./shop.html">Shop</a>
@@ -35,7 +48,7 @@
             <a class="nav-link" href="./contact.html">Contact Us</a>
           </li>
           <li class="nav-item icons">
-            <a class="nav-link" href="./cart.html"><i class="fas fa-shopping-bag"></i></a>
+            <a class="nav-link" href="./cart.php"><i class="fas fa-shopping-bag"></i></a>
             <a class="nav-link" href="./account.html"><i class="fas fa-user"></i></a>
           </li>
         </ul>
@@ -43,69 +56,45 @@
     </div>
   </nav>
 
+  <!----------------- checkout -------------------->
 
-  <!--------------------- Account ----------------------->
-  <section class="account-section">
-    <div class="account-container">
-      <div>
-        <h3 class="account-h3">Account info</h3>
-        <div class="account-info">
-          <p>Name <span>John</span></p>
-          <p>Email <span>John@email.com</span></p>
-          <p><a href="" id="order-btn">Your orders</a></p>
-          <p><a href="" id="logout-btn">Logout</a></p>
+  <section class="checkout-section">
+    <div class="checkout-container ">
+      <h2 class="checkout-text">Check Out</h2>
+      <hr class="checkout-hr">
+    </div>
+    <div class=".checkout-form-container">
+      <form id="register-form" method="POST" action="server/place_order.php" >
+
+        <div class="form-group">
+          <label for="">Name</label>
+          <input type="text" class="form-control" id="checkout-name" name="name" placeholder="Name" required />
         </div>
-      </div>
-      <div class="account-form-container">
-        <form action="" id="account-form">
-          <h3>Change Password</h3>
-          <div class="form-group">
-            <label>Password</label>
-            <input type="password" class="form-control" id="account-password" name="password" placeholder="Password"
-              required>
-          </div>
-          <div class="form-group">
-            <label>Confirm Password</label>
-            <input type="password" class="form-control" id="account-password-confirm" name="confirmpassword"
-              placeholder="Confirm Password" required>
-          </div>
-          <div class="form-group">
-            <input type="submit" value="Change Password" class="btn" id="change-pass-btn">
-          </div>
-        </form>
-      </div>
+        <div class="form-group">
+          <label for="">Email</label>
+          <input type="text" class="form-control" id="checkout-email" name="email" placeholder="Email" required />
+        </div>
+        <div class="form-group">
+          <label for="">Phone</label>
+          <input type="text" class="form-control" id="checkout-phone" name="phone" placeholder="Phone " required />
+        </div>
+        <div class="form-group">
+          <label for="">City</label>
+          <input type="text" class="form-control" id="checkout-city" name="city" placeholder="City " required />
+        </div>
+        <div class="form-group">
+          <label for="">Address</label>
+          <input type="text" class="form-control" id="checkout-address" name="address" placeholder="Address" required />
+        </div>
+        <div class="form-group">
+          <p>Total amount :$<?php echo $_SESSION['total']?></p>
+          <input type="submit" class="btn" id="checkout-btn" name="place_order" value="Place Order" />
+        </div>
+      </form>
     </div>
   </section>
 
 
-  <!-------------------- orders ------------------------->
-  <section id="orders-container">
-    <div class="orders-cart-container">
-      <h2 class="orders-cart-font-weight-bolde">Your Orders</h2>
-    </div>
-    <table class="orders-cart-table">
-      <tr>
-        <th>Product</th>
-        <th>Date</th>
-      </tr>
-      <tr>
-
-        <td>
-          <div class="orders-product-info">
-            <img src="assets/imgs/cycle1.jpeg" alt="">
-            <div>
-              <p class="orders-p">cycle</p>
-            </div>
-          </div>
-        </td>
-
-        <td>
-          <span>2036-5-8</span>
-        </td>
-
-      </tr>
-    </table>
-  </section>
 
 
   <!--------------- Footer --------------------->
@@ -152,6 +141,8 @@
       <p>&copy; 2025 Peakpeadlers. All Rights Reserved.</p>
     </div>
   </footer>
+
+
 
 </body>
 

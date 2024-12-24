@@ -38,10 +38,15 @@ if (isset($_POST['add_to_cart'])) {
     }
 
 }  
+
+//calculate total
+// calculateTotalCart();
+
 //remove product from cart
 else if(isset($_POST['remove_product'])){
   $product_id = $_POST['product_id'];
   unset($_SESSION['cart'][$product_id]);
+  calculateTotalCart();
 }
 else if(isset($_POST['edit_quantity'])){
   $product_id= $_POST['product_id'];
@@ -49,20 +54,22 @@ else if(isset($_POST['edit_quantity'])){
   $product_array= $_SESSION['cart'][$product_id];
   $product_array['product_quantity'] = $product_quantity;
   $_SESSION['cart'][$product_id]=$product_array;
+  calculateTotalCart();
 }else {
-    header("location:index.php");
+    // header("location:index.php");
 }
 
 function calculateTotalCart(){
   $total=0;
   foreach($_SESSION['cart'] as $key => $value){
-    $product=$_SESSION['cart'][$key];
-    $price= $product['product_price'];
-    $quantity=$product['product_quantity'];
-    $total=$total+($price * $quantity);
+    $product = $_SESSION['cart'][$key];
+    $price = $product['product_price'];
+    $quantity = $product['product_quantity'];
+    $total = $total + ($price * $quantity);
   }
   $_SESSION['total']= $total;
 }
+calculateTotalCart();
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +97,7 @@ function calculateTotalCart(){
       <div class="navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="./index.html">Home</a>
+            <a class="nav-link" href="./index.php">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./shop.html">Shop</a>
@@ -102,7 +109,7 @@ function calculateTotalCart(){
             <a class="nav-link" href="./contact.html">Contact Us</a>
           </li>
           <li class="nav-item icons">
-            <a class="nav-link" href="./cart.html"><i class="fas fa-shopping-bag"></i></a>
+            <a class="nav-link" href="./cart.php"><i class="fas fa-shopping-bag"></i></a>
             <a class="nav-link" href="./account.html"><i class="fas fa-user"></i></a>
           </li>
         </ul>
@@ -159,18 +166,18 @@ function calculateTotalCart(){
     <div class="cart-total">
       <table>
         <tr>
-          <td>Subtotal </td>
-          <td>$155</td>
-        </tr>
-        <tr>
           <td>Total </td>
-          <td>$155</td>
+          <td>$<?php echo $_SESSION['total']?></td>
         </tr>
       </table>
     </div>
 
     <div>
-      <button class="btn chekout-btn" onclick="window.location.href='Checkout.html'">Checkout</button>
+    <form method="POST" action="checkout.php">
+      <input type="submit" class=" chekout-btn" value="Checkout"  name="checkout" />
+      </form>
+      
+      
     </div>
 
   </section>

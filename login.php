@@ -51,7 +51,7 @@
       <hr class="login-hr">
     </div>
     <div class=".login-form-container">
-      <form action="" id="login-form">
+      <form id="login-form" method="POST" action="login.phph">
 
         <div class="form-group">
           <label for="">Email</label>
