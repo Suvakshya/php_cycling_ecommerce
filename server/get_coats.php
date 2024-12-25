@@ -7,6 +7,6 @@
 
  $stmt->execute();
 
- $coats_products = $stmt->get_result()//[]
+ $coats_products = $stmt->get_result();//[]
 
 ?>

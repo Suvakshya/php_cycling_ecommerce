@@ -645,6 +645,7 @@ button:hover {
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
+  margin-top: 80px;
 }
 
 .cart-container h2 {
@@ -652,7 +653,6 @@ button:hover {
   font-size: 28px;
   color: #333;
   text-align: center;
-  margin-bottom: 20px;
 }
 
 .cart-table {
@@ -876,6 +876,7 @@ button:hover {
 
 #login-form a#register-url {
   margin: 10%;
+  margin-top: 0px;
   font-size: 1rem;
   text-align: center;
   color: #333;
@@ -1025,7 +1026,7 @@ button:hover {
 }
 
 .account-info a:hover {
-  color: #cd5b45;
+  color: rgb(170, 62, 40);
 }
 
 .account-form-container {
@@ -1101,6 +1102,9 @@ button:hover {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+#orders-container hr {
+  border: none;
+}
 
 .orders-cart-container {
   text-align: center;
@@ -1137,6 +1141,8 @@ button:hover {
 .orders-product-info {
   display: flex;
   align-items: center;
+  margin-right: -40px;
+  padding-left: 40px;
 }
 
 .orders-product-info img {
@@ -1156,6 +1162,25 @@ button:hover {
 .orders-cart-table td span {
   font-size: 14px;
   color: #777;
+}
+
+.ordertd-btn {
+  width: 100px;
+  font-size: 1rem;
+  font-weight: 100;
+  outline: none;
+  border: none;
+  background-color: #ff7f50;
+  color: aliceblue;
+  padding: 7px 10px;
+  border-radius: 8px;
+  /* text-transform: uppercase; */
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+
+.ordertd-btn:hover {
+  background-color: rgb(170, 62, 40);
 }
 
 //---------------------checkout --------------------------//

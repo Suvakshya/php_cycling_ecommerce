@@ -23,20 +23,20 @@
       <div class="navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="./index.html">Home</a>
+            <a class="nav-link" href="./index.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./shop.html">Shop</a>
+            <a class="nav-link" href="./shop.php">Shop</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./blog.html">Blog</a>
+            <a class="nav-link" href="./blog.php">Blog</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./contact.html">Contact Us</a>
+            <a class="nav-link" href="./contact.php">Contact Us</a>
           </li>
           <li class="nav-item icons">
-            <a class="nav-link" href="./cart.html"><i class="fas fa-shopping-bag"></i></a>
-            <a class="nav-link" href="./account.html"><i class="fas fa-user"></i></a>
+            <a class="nav-link" href="./cart.php"><i class="fas fa-shopping-bag"></i></a>
+            <a class="nav-link" href="./account.php"><i class="fas fa-user"></i></a>
           </li>
         </ul>
       </div>

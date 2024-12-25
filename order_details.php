@@ -1,53 +1,25 @@
 
 <?php
-session_start();
 include('server/connection.php');
 
-if(isset($_SESSION['logged_in'])){
+if(isset($_GET['order_details_btn']) && isset($_GET['order_id'])){
+
+  $order_id = $_GET['order_id'];
+
+  $order_status= $_GET['order_status'];
+
+  $stmt = $conn->prepare("SELECT * FROM order_items WHERE order_id = ? ");
+
+  $stmt->bind_param('i',$order_id);
+
+  $stmt->execute();
+
+  $order_details = $stmt->get_result();
+}else{
   header('location:account.php');
   exit;
 }
-
-if (isset($_POST['login_btn'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Prepare SQL query
-    $stmt = $conn->prepare("SELECT user_id, user_name, user_email, user_password FROM users WHERE user_email = ? LIMIT 1");
-
-    $stmt->bind_param('s', $email);
-
-    // Execute statement
-    if ($stmt->execute()) {
-        $stmt->bind_result($user_id, $user_name, $user_email, $user_password);
-        $stmt->store_result();
-
-        // Check if email exists and password is correct
-        if ($stmt->num_rows == 1) {
-            $stmt->fetch();
-
-            // Verify password using password_verify()
-            if (password_verify($password, $user_password)) {
-                // Password is correct, set session variables
-                $_SESSION['user_id'] = $user_id;
-                $_SESSION['user_name'] = $user_name;
-                $_SESSION['user_email'] = $user_email;
-                $_SESSION['logged_in'] = true;
-
-                // Redirect to account page
-                header("location: account.php?login_success=logged in successfully");
-            } else {
-                header("location: login.php?error=Invalid password");
-            }
-        } else {
-            header("location: login.php?error=No account found with that email");
-        }
-    } else {
-        header("location: login.php?error=Something went wrong");
-    }
-}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,13 +27,35 @@ if (isset($_POST['login_btn'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Account</title>
   <!-- Font Awesome link -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
 
   <link rel="stylesheet" href="./assets/css/index.css">
-</head>
+
+  <style>
+    .pay-btn{
+  width: 100px;
+  font-size: 1rem;
+  font-weight: 100;
+  outline: none;
+  border: none;
+  background-color: #ff7f50;
+  color: aliceblue;
+  padding: 7px 10px;
+  border-radius: 8px;
+  /* text-transform: uppercase; */
+  cursor: pointer;
+  transition: 0.4s ease;
+  margin:20px
+}
+
+.pay-btn:hover {
+  background-color: rgb(170, 62, 40);
+}
+  </style>
+
 
 <body>
   <!------------------ Navbar ---------------------->
@@ -94,39 +88,65 @@ if (isset($_POST['login_btn'])) {
     </div>
   </nav>
 
+   <!------------------ Order details ---------------------->
 
-  <!--------------------- login ----------------------->
-  <section class="login-section">
-    <div class="login-container ">
-      <h2 class="login-text">Login</h2>
-      <hr class="login-hr">
+  <section style="margin:100px; margin-top:150px" id="orders-container">
+    <div  style="margin-top:100px;" class="orders-cart-container">
+      <h2 class="orders-cart-font-weight-bolde" id="order-title">Order Details</h2>
     </div>
-    <div class=".login-form-container">
-      <form id="login-form" method="POST" action="login.php">
-        <p style="color:red" class="text-center"><?php if(isset($_GET['error'])){echo $_GET['error'];}?></p>
+    <table class="orders-cart-table" >
+      <tr>
+        <th style="padding-left: 55px;">Product</th>
+        <th>Price</th>
+        <th style=" text-align: right; padding-right: 50px;">Quantity</th>
+      </tr>
 
-        <div class="form-group">
-          <label for="">Email</label>
-          <input type="text" class="form-control" id="login-email" name="email" placeholder="Email" required />
-        </div>
-        <div class="form-group">
-          <label for="">Password</label>
-          <input type="password" class="form-control" id="login-password" name="password" placeholder="password "
-            required />
-        </div>
-        <div class="form-group">
-          <input type="submit" class="btn" id="login-btn"  name="login_btn" value="login" />
-        </div>
-        <div class="form-group">
-          <a id="register-url" href="register.php" class="btn">Don't have an account ? Register</a>
-        </div>
-      </form>
-    </div>
+
+      <?php
+      while($row = $order_details->fetch_assoc()){
+      ?>
+
+
+      <tr >
+        <td>
+          <div class="orders-product-info">
+            <img src="assets/imgs/<?php echo $row['product_image']?>" alt="">
+            <div>
+              <p class="orders-p"><?php echo $row['product_name']?></p>
+            </div>
+          </div>
+        </td>
+
+        <td>
+          <span><?php echo $row['product_price']?></span>
+        </td>
+
+        <td style=" text-align: right ; padding-right:80px">
+          <span><?php echo $row['product_quantity'];?></span>
+        </td>
+
+
+  
+
+      </tr>
+
+      <?php }?>
+
+
+    </table>
+
+    <?php
+    if($order_status === "not paid"){?>
+    <form style="float:right;">
+      <input type="submit" class="pay-btn" value="Pay now"/>
+    </form>
+
+    <?php }?>
   </section>
 
 
 
-
+  
   <!--------------- Footer --------------------->
   <footer class="footer-container">
     <div class="footer-content">

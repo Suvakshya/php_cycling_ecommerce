@@ -2,6 +2,12 @@
 session_start();
 include('server/connection.php');
 
+if(isset($_SESSION['logged_in'])){
+  header('location: account.php');
+  exit; 
+}
+
+
 if (isset($_POST['register'])) {
 
     $name = $_POST['name'];
@@ -35,24 +41,24 @@ if (isset($_POST['register'])) {
     } else {
         // Create a new user
         $stmt = $conn->prepare("INSERT INTO users (user_name, user_email, user_password) VALUES (?, ?, ?)");
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);  // Secure password hash
-        $stmt->bind_param('sss', $name, $email, $hashedPassword);
+        // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);  // Secure password hash
+        // $stmt->bind_param('sss', $name, $email, $hashedPassword);
+        $stmt->bind_param('sss', $name, $email, md5($password));
 
         // If account was created successfully, redirect to account page
         if ($stmt->execute()) {
+            $user_id= $stmt->insert_id;
+            $_SESSION['user_id'] = $user_id;
             $_SESSION['user_email'] = $email;
             $_SESSION['user_name'] = $name;
             $_SESSION['logged_in'] = true;
-            header('location: account.php?register=You registered successfully');
+            header('location: account.php?register_success=You registered successfully');
             exit;
         } else {
             header('location: register.php?error=Could not create an account at the moment');
             exit;
         }
     }
-    //if user has already registered  then take the user to the account page
-}else if(isset($_SESSION['logged_in'])){
-  header('location: account.php');
   exit;
 }
 ?>
@@ -83,20 +89,20 @@ if (isset($_POST['register'])) {
       <div class="navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="./index.html">Home</a>
+            <a class="nav-link" href="./index.php">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./shop.html">Shop</a>
+            <a class="nav-link" href="./shop.php">Shop</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./blog.html">Blog</a>
+            <a class="nav-link" href="./blog.php">Blog</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./contact.html">Contact Us</a>
+            <a class="nav-link" href="./contact.php">Contact Us</a>
           </li>
           <li class="nav-item icons">
-            <a class="nav-link" href="./cart.html"><i class="fas fa-shopping-bag"></i></a>
-            <a class="nav-link" href="./account.html"><i class="fas fa-user"></i></a>
+            <a class="nav-link" href="./cart.php"><i class="fas fa-shopping-bag"></i></a>
+            <a class="nav-link" href="./account.php"><i class="fas fa-user"></i></a>
           </li>
         </ul>
       </div>
