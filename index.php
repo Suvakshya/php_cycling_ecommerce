@@ -66,7 +66,7 @@
     </div>
   </section>
 
-  <!-------------------------- New ------------------------>
+  <!-------------------------- Category ------------------------>
   <section id="new" class="new-section">
     <h1 class="new-h1">Category</h1>
     <div class="new-row">
@@ -76,7 +76,7 @@
         <img class="new-img" src="assets/imgs/1.jpg" alt="Shoes">
         <div class="new-details">
           <h2>Down Hill</h2>
-          <button onclick="window.location.href='shop.html'">Shop now</button>
+          <button onclick="window.location.href='shop.php'">Shop now</button>
         </div>
       </div>
 
@@ -85,7 +85,7 @@
         <img class="new-img" src="assets/imgs/trail.webp" alt="Shoes">
         <div class="new-details">
           <h2>Trail</h2>
-          <button onclick="window.location.href='shop.html'">Shop now</button>
+          <button onclick="window.location.href='shop.php'">Shop now</button>
         </div>
       </div>
 
@@ -94,7 +94,7 @@
         <img class="new-img" src="assets/imgs/crosscountry.jpg" alt="Shoes">
         <div class="new-details">
           <h2>Cross country</h2>
-          <button onclick="window.location.href='shop.html'">Shop now</button>
+          <button onclick="window.location.href='shop.php'">Shop now</button>
         </div>
       </div>
 
@@ -131,7 +131,8 @@
         <h4 class="p-price">$
           <?php echo $row['product_price']?>
         </h4>
-        <button class="buy-btn">Buy now</button>
+        
+        <a href="<?php echo "single_product.php?product_id=". $row['product_id']?>"><button class="buy-btn">Buy now</button></a>
       </div>
 
       <?php }?>
@@ -144,7 +145,7 @@
     <div class="banner-container">
       <h4>Mid season's sale</h4>
       <h1 class="banner-h1">Canyon neuron<br>Up to 30% OFF</h1>
-      <button class="banner-button" onclick="window.location.href='shop.html'">Shop now</button>
+      <button class="banner-button" onclick="window.location.href='shop.php'">Shop now</button>
     </div>
   </section>
 

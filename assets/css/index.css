@@ -205,12 +205,12 @@ button:hover {
 /*-------------------- featured-------------------------- */
 
 #featured {
-  margin-top: 50px;
+  /* margin-top: 50px; */
   padding-bottom: 50px;
 }
 
 .featured-container {
-  margin-top: 50px;
+  /* margin-top: 50px; */
   padding-top: 50px;
   padding-bottom: 50px;
   text-align: center;

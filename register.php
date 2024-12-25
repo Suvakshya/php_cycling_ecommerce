@@ -41,9 +41,8 @@ if (isset($_POST['register'])) {
     } else {
         // Create a new user
         $stmt = $conn->prepare("INSERT INTO users (user_name, user_email, user_password) VALUES (?, ?, ?)");
-        // $hashedPassword = password_hash($password, PASSWORD_DEFAULT);  // Secure password hash
-        // $stmt->bind_param('sss', $name, $email, $hashedPassword);
-        $stmt->bind_param('sss', $name, $email, md5($password));
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);  // Secure password hash
+        $stmt->bind_param('sss', $name, $email, $hashedPassword);
 
         // If account was created successfully, redirect to account page
         if ($stmt->execute()) {

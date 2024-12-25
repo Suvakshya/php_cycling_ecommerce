@@ -1,1 +1,6 @@
  php -S  localhost:8000
+
+ shoes = cross country
+ coats = trail
+ watches = down hill
+ bags = accessory
