@@ -13,7 +13,9 @@ if(isset($_POST['order_confirmation_btn'])){
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Order Confirmation</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
   <link rel="stylesheet" href="../assets/css/index.css">
+  
 </head>
 <body>
 
