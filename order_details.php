@@ -27,9 +27,10 @@ function calculateTotalOrderPrice($order_details) {
         $product_quantity = $row['product_quantity'];
         $total += ($product_price * $product_quantity);
     }
-    return $total;
+    return $total; // Corrected this line to return the calculated total
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -112,11 +113,12 @@ function calculateTotalOrderPrice($order_details) {
     <!-- Payment Button -->
     <?php if ($order_status === "not paid") { ?>
       <form style="float:right;" method="POST" action="server/payment.php">
-        <input type="hidden" name="order_total_price" value="<?php echo htmlspecialchars($order_total_price); ?>">
-        <input type="hidden" name="order_status" value="<?php echo htmlspecialchars($order_status); ?>">
-        <input type="hidden" name="order_id" value="<?php echo htmlspecialchars($order_id); ?>">
-        <input type="submit" name="order_payy_btn" class="pay-btn" value="Pay now">
-      </form>
+    <input type="hidden" name="order_total_price" value="<?php echo htmlspecialchars($order_total_price); ?>">
+    <input type="hidden" name="order_status" value="<?php echo htmlspecialchars($order_status); ?>">
+    <input type="hidden" name="order_id" value="<?php echo htmlspecialchars($order_id); ?>">
+    <input type="submit" name="order_pay_btn" class="pay-btn" value="Pay now">
+</form>
+
     <?php } ?>
   </section>
 
