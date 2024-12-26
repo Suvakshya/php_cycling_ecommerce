@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if(!isset($_SESSION['logged_in'])){
+  header('location:../login.php?error=Please login to visit your cart');
+  exit;
+}
+
 if (isset($_POST['add_to_cart'])) {
 
     // if user lay product cart ma added gare sakyo vanay 
@@ -193,11 +198,11 @@ calculateTotalCart();
       <div class="footer-featured">
         <h5>Featured</h5>
         <ul>
-          <li><a href="#">Men</a></li>
-          <li><a href="#">Women</a></li>
-          <li><a href="#">Girls</a></li>
+        <li><a href="#">Cross Country MTB</a></li>
+          <li><a href="#">Down Hill MTB</a></li>
+          <li><a href="#">Trail MTB</a></li>
           <li><a href="#">New Arrival</a></li>
-          <li><a href="#">Clothes</a></li>
+          <li><a href="#">MTB Accessory</a></li>
         </ul>
       </div>
       <div class="footer-contact">

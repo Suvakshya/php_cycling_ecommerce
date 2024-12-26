@@ -2,6 +2,11 @@
 session_start();
 
 include('connection.php');
+ 
+if(!isset($_SESSION['logged_in'])){
+  header('location:../login.php?error=Please login to place an order');
+  exit;
+}else{
 if(isset($_POST['place_order'])){
 
 //1.get user info and store it in database
@@ -20,6 +25,13 @@ $order_date= date('Y-m-d ');
 $stmt = $conn->prepare("INSERT INTO orders (order_cost,order_status,user_id,user_phone,user_city,user_address,order_date) VALUES (?,?,?,?,?,?,?);");
 $stmt->bind_param('isiisss',$order_cost,$order_status,$user_id,$phone,$city,$address,$order_date);
 $stmt->execute();
+
+// $stmt_status = $stmt->execute();
+
+// if(!$stmt_status){
+//   header('location:index.php');
+//   exit;
+// }
 
 
 //2.issue new order and store order info in database
@@ -55,5 +67,6 @@ header('location: ./payment.php?order_status=order placed successfully');
 
 
 
+}
 }
 ?>

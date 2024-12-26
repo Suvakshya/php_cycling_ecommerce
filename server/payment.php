@@ -1,5 +1,43 @@
 <?php
 session_start();
+include('connection.php');
+
+// Check if the payment button is clicked
+if (isset($_POST['order_pay_btn'])) {
+    $order_status = $_POST['order_status'];
+    $order_total_price = $_POST['order_total_price'];
+    $order_id = $_POST['order_id'];
+
+    // Validate input data
+    if (!empty($order_id) && $order_status === "not paid") {
+        $new_status = "payed";
+
+        // Update the order status in the database
+        $stmt = $conn->prepare("UPDATE orders SET order_status = ? WHERE order_id = ?");
+        $stmt->bind_param("si", $new_status, $order_id);
+
+        if ($stmt->execute()) {
+            $_SESSION['message'] = "Order successfully paid!";
+            header("Location: ../order_confirmation.php");
+            exit;
+        } else {
+            echo "Error updating order status: " . $conn->error;
+        }
+    } else {
+        echo "Invalid order data.";
+    }
+} else {
+    echo "Invalid request.";
+}
+?>  in this code wihout hampering the layout <?php
+session_start();
+
+if(isset($_POST['order_pay_btn'])){
+  $order_status = $_POST['order_status'];
+  $order_total_price = $_POST['order_total_price'];
+
+  $_SESSION['total'] = $order_total_price;
+}
 
 
 ?>
@@ -65,8 +103,8 @@ session_start();
            align-items: center;
            flex-direction: column;
            padding:10px">
-      <p><?php echo $_GET['order_status'];?></p>
-      <p>Total payment: <span style="color: coral; text:bold">$<?php echo $_SESSION['total'];?></span></p>
+      <p><?php if(isset($_GET['order_status'])){echo $_GET['order_status'];}?></p>
+      <p>Total payment: <span style="color: coral; text:bold">$<?php if(isset($_SESSION['total'])){ echo $_SESSION['total'];}?></span></p>
       <input class="chekout-btn" type="submit" value="Pay Now">
     </div>
   </section>
@@ -78,18 +116,19 @@ session_start();
   <footer class="footer-container">
     <div class="footer-content">
       <div class=" footer-logo">
-        <img src="assets/imgs/flogo.png" alt="Logo">
+        <img src="../assets/imgs/flogo.png" alt="Logo">
         <p>We provide the best products for the most affordable price</p>
       </div>
 
       <div class="footer-featured">
         <h5>Featured</h5>
         <ul>
-          <li><a href="#">Men</a></li>
-          <li><a href="#">Women</a></li>
-          <li><a href="#">Girls</a></li>
+        <li><a href="#">Cross Country MTB</a></li>
+          <li><a href="#">Down Hill MTB</a></li>
+          <li><a href="#">Trail MTB</a></li>
           <li><a href="#">New Arrival</a></li>
-          <li><a href="#">Clothes</a></li>
+          <li><a href="#">MTB Accessory</a></li>
+          
         </ul>
       </div>
       <div class="footer-contact">

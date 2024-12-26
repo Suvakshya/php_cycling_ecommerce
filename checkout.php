@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(!empty($_SESSION['cart']) && isset($_POST['checkout'])){
-  //let user in
+if( !empty($_SESSION['cart']) && isset($_POST['checkout'])){
+  //if cart is not let user in 
 }else{
   //send user to home page
   header('location:index.php');
@@ -108,11 +108,11 @@ if(!empty($_SESSION['cart']) && isset($_POST['checkout'])){
       <div class="footer-featured">
         <h5>Featured</h5>
         <ul>
-          <li><a href="#">Men</a></li>
-          <li><a href="#">Women</a></li>
-          <li><a href="#">Girls</a></li>
+        <li><a href="#">Cross Country MTB</a></li>
+          <li><a href="#">Down Hill MTB</a></li>
+          <li><a href="#">Trail MTB</a></li>
           <li><a href="#">New Arrival</a></li>
-          <li><a href="#">Clothes</a></li>
+          <li><a href="#">MTB Accessory</a></li>
         </ul>
       </div>
       <div class="footer-contact">
