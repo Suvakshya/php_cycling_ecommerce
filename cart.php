@@ -6,6 +6,12 @@ if(!isset($_SESSION['logged_in'])){
   exit;
 }
 
+//newely added code//////////
+if (!isset($_SESSION['cart'])) {
+  $_SESSION['cart'] = array(); // Initialize as an empty array if not set
+}
+
+
 if (isset($_POST['add_to_cart'])) {
 
     // if user lay product cart ma added gare sakyo vanay 

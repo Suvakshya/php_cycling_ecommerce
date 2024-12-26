@@ -21,6 +21,7 @@ if (isset($_POST['order_pay_btn'])) {
 
         if ($stmt->affected_rows > 0) {
             $_SESSION['message'] = 'Payment successful! Order status updated to "paid".';
+            unset($_SESSION['cart']);
         } else {
             $_SESSION['message'] = 'Error updating order status.';
         }
@@ -44,18 +45,18 @@ if (isset($_GET['order_id']) && isset($_GET['order_status'])) {
     }
     
     // Update order status to "paid" in the database (if it's not already paid)
-    if ($order_status === 'not paid') {
-        $new_status = 'paid';
-        $stmt = $conn->prepare("UPDATE orders SET order_status = ? WHERE order_id = ?");
-        $stmt->bind_param('si', $new_status, $order_id);
-        $stmt->execute();
+    // if ($order_status === 'not paid') {
+    //     $new_status = 'paid';
+    //     $stmt = $conn->prepare("UPDATE orders SET order_status = ? WHERE order_id = ?");
+    //     $stmt->bind_param('si', $new_status, $order_id);
+    //     $stmt->execute();
 
-        if ($stmt->affected_rows > 0) {
-            $_SESSION['message'] = 'Payment successful! Order status updated to "paid".';
-        } else {
-            $_SESSION['message'] = 'Error updating order status.';
-        }
-    }
+    //     if ($stmt->affected_rows > 0) {
+    //         $_SESSION['message'] = 'Payment successful! Order status updated to "paid".';
+    //     } else {
+    //         $_SESSION['message'] = 'Error updating order status.';
+    //     }
+    // }
 }
 ?>
 
@@ -92,7 +93,7 @@ if (isset($_GET['order_id']) && isset($_GET['order_status'])) {
     <div class="checkout-payment-form-container" style="text-align: center; padding: 10px;">
       <p><?php echo isset($_SESSION['message']) ? $_SESSION['message'] : ''; ?></p>
       <p>Total payment: <span style="color: coral; font-weight: bold;">$<?php echo isset($_SESSION['total']) ? $_SESSION['total'] : '0.00'; ?></span></p>
-      <form method="POST" action="../order_confirmation.php">
+      <form method="POST" action="../index.php">
         <input type="hidden" name="order_status" value="paid">  <!-- Set status to 'paid' here -->
         <input type="hidden" name="order_total_price" value="<?php echo $_SESSION['total']; ?>">
         <input type="hidden" name="order_id" value="<?php echo $order_id; ?>"> <!-- Send order ID -->
