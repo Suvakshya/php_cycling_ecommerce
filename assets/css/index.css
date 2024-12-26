@@ -1378,3 +1378,42 @@ button:hover {
 .blog-full-content p {
   margin-bottom: 20px;
 }
+
+//----------------------edit----------------------------//
+
+.edit-btn {
+  width: 100px;
+  font-size: 1rem;
+  font-weight: 100;
+  outline: none;
+  border: none;
+  background-color: rgb(78, 198, 235);
+  color: aliceblue;
+  padding: 7px 10px;
+  border-radius: 8px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+
+.edit-btn:hover {
+  background-color: rgb(2, 140, 182);
+}
+.delete-btn {
+  width: 100px;
+  font-size: 1rem;
+  font-weight: 100;
+  outline: none;
+  border: none;
+  background-color: rgb(235, 78, 78);
+  color: aliceblue;
+  padding: 7px 10px;
+  border-radius: 8px;
+  /* text-transform: uppercase; */
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+
+.delete-btn:hover {
+  background-color: rgb(180, 7, 7);
+}
