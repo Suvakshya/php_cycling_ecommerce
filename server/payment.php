@@ -1,12 +1,61 @@
 <?php
 session_start();
+include('connection.php'); // Ensure your database connection is included
 
+// Handle the case when the user comes from 'order_detail.php'
 if (isset($_POST['order_pay_btn'])) {
-    $order_status = $_POST['order_status'];
-    $order_total_price = $_POST['order_total_price'];
-
+    // Form submitted from order_detail.php
+    $order_status = $_POST['order_status'];  // Current order status (not paid)
+    $order_total_price = $_POST['order_total_price'];  // Total price for the order
+    $order_id = $_POST['order_id'];  // Order ID from the form (hidden input)
+    
     // Set the total in the session for display
     $_SESSION['total'] = $order_total_price;
+
+    // Update order status to "paid" in the database
+    if ($order_status === 'not paid') {
+        $new_status = 'paid'; // Assign 'paid' to a variable
+        $stmt = $conn->prepare("UPDATE orders SET order_status = ? WHERE order_id = ?");
+        $stmt->bind_param('si', $new_status, $order_id); // Pass the variable instead of the direct string
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            $_SESSION['message'] = 'Payment successful! Order status updated to "paid".';
+        } else {
+            $_SESSION['message'] = 'Error updating order status.';
+        }
+    }
+}
+
+// Handle the case when the user comes from 'place_order.php' (using GET)
+if (isset($_GET['order_id']) && isset($_GET['order_status'])) {
+    // Get the order ID and status from the GET parameters
+    $order_id = $_GET['order_id'];
+    $order_status = $_GET['order_status'];
+
+    // You might want to calculate the total price from the database if it's not set
+    if (!isset($_SESSION['total'])) {
+        $stmt = $conn->prepare("SELECT order_cost FROM orders WHERE order_id = ?");
+        $stmt->bind_param('i', $order_id);
+        $stmt->execute();
+        $stmt->bind_result($order_cost);
+        $stmt->fetch();
+        $_SESSION['total'] = $order_cost;  // Store the total in the session
+    }
+    
+    // Update order status to "paid" in the database (if it's not already paid)
+    if ($order_status === 'not paid') {
+        $new_status = 'paid';
+        $stmt = $conn->prepare("UPDATE orders SET order_status = ? WHERE order_id = ?");
+        $stmt->bind_param('si', $new_status, $order_id);
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            $_SESSION['message'] = 'Payment successful! Order status updated to "paid".';
+        } else {
+            $_SESSION['message'] = 'Error updating order status.';
+        }
+    }
 }
 ?>
 
@@ -44,7 +93,10 @@ if (isset($_POST['order_pay_btn'])) {
       <p><?php echo isset($_SESSION['message']) ? $_SESSION['message'] : ''; ?></p>
       <p>Total payment: <span style="color: coral; font-weight: bold;">$<?php echo isset($_SESSION['total']) ? $_SESSION['total'] : '0.00'; ?></span></p>
       <form method="POST" action="../order_confirmation.php">
-        <input class="chekout-btn" type="submit" value="Pay Now">
+        <input type="hidden" name="order_status" value="paid">  <!-- Set status to 'paid' here -->
+        <input type="hidden" name="order_total_price" value="<?php echo $_SESSION['total']; ?>">
+        <input type="hidden" name="order_id" value="<?php echo $order_id; ?>"> <!-- Send order ID -->
+        <input class="chekout-btn" type="submit" value="Proceed">
       </form>
     </div>
   </section>

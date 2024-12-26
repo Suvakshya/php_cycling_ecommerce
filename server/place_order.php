@@ -63,7 +63,11 @@ foreach($_SESSION['cart'] as $key => $value) {
 // unset($_SESSION['cart']);
 
 //6.inform user that whether everything is fine or there is a problem
-header('location: ./payment.php?order_status=order placed successfully');
+// header('location: ./payment.php?order_status=order placed successfully');
+// 5. Redirect to payment.php with order details
+header('Location: payment.php?order_id=' . $order_id . '&order_status=not paid');
+exit;
+
 
 
 
