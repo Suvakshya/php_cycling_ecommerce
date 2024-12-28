@@ -71,16 +71,16 @@ if (isset($_GET['order_id'])) {
             <div class="navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="./index.php">dashboard</a>
+                        <a class="nav-link" href="./index.php">Order</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./order.php">order</a>
+                        <a class="nav-link" href="./account.php">Accounts</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./products.php">All product</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Add new product</a>
+                        <a class="nav-link"  href="./add_product.php">Add new product</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="logout.php?logout=1">Log Out</a>
@@ -92,8 +92,7 @@ if (isset($_GET['order_id'])) {
 
     <section class="checkout-section">
         <div class="checkout-container">
-            <h2 class="checkout-text">Edit Order</h2>
-            <hr class="checkout-hr">
+            <h2 class="checkout-text">Edit Order  <hr style="width: 70px; border: 2px solid #ff7f50;"></h2>
         </div>
         <div class="checkout-form-container">
             <form id="register-form" method="POST" action="edit_order.php">
@@ -129,7 +128,7 @@ if (isset($_GET['order_id'])) {
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" class="edit-btn" id="checkout-btn" name="edit_btn" value="Edit Order" />
+                    <input type="submit" class="edit-btn" id="checkout-btn" name="edit_btn" value="Edit" />
                 </div>
             </form>
         </div>

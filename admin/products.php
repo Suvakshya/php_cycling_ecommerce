@@ -79,16 +79,16 @@
       <div class="navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="./index.php">dashboard</a>
+            <a class="nav-link" href="./index.php">Order</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./order.php">order</a>
+            <a class="nav-link" href="./account.php">Accounts</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./products.php">All product</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Add new product</a>
+            <a class="nav-link" href="./add_product.php">Add new product</a>
           </li>
           <!-- Updated logout link -->
           <li class="nav-item">
@@ -99,10 +99,10 @@
     </div>
   </nav>
 
-  <!-------------------- orders ------------------------->
+  <!-------------------- products ------------------------->
   <section style=" margin:50px;margin-top:150px;" id="orders-container">
     <div style="margin-top:100px;" class="orders-cart-container">
-      <h2 class="orders-cart-font-weight-bolde" id="order-title">Admin Products</h2>
+      <h2 class="orders-cart-font-weight-bolde" id="order-title">Admin Products <hr style="width: 70px; border: 2px solid #ff7f50;"></h2>
 
       <?php if(isset($_GET['edit_success_message'])){?>
       <p style="color:green">

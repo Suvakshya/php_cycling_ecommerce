@@ -47,8 +47,9 @@
   <!------------------------ blog ------------------------->
   <section id="blog" class="blog-section">
     <div class="blog-container">
-      <h2 class="blog-title">Mountain Biking Blog</h2>
-      <hr class="blog-hr">
+      <h2 class="blog-title" style="margin-top:150px">Mountain Biking Blog</h2>
+      <hr style="width:50% ; border: 1px solid #ddd;">
+      <!-- <hr class="blog-hr"> -->
 
       <div class="blog-posts">
         <!-- Full Article 1 -->

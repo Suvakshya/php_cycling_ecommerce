@@ -86,7 +86,7 @@ if( !empty($_SESSION['cart']) && isset($_POST['checkout'])){
           <input type="text" class="form-control" id="checkout-address" name="address" placeholder="Address" required />
         </div>
         <div class="form-group">
-          <p>Total amount :$<?php echo $_SESSION['total']?></p>
+          <p>Total amount :<span style="color: #ff7f50; font-weight: bold;">$<?php echo $_SESSION['total']?></span> </p>
           <input type="submit" class="btn" id="checkout-btn" name="place_order" value="Place Order" />
         </div>
       </form>

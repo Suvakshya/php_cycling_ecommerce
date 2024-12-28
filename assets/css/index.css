@@ -1258,7 +1258,7 @@ button:hover {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin: 50px auto;
-  max-width: 800px;
+  /* max-width: 800px; */
 }
 
 .contact-container {
@@ -1272,6 +1272,7 @@ button:hover {
   font-weight: bold;
   color: #333;
   margin-bottom: 20px;
+  margin-left: 500px;
 }
 
 .contact-hr {

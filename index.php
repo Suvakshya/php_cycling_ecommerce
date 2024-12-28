@@ -56,6 +56,7 @@
 
   <!----------------------- Brand ------------------------>
   <h1 class="brand-h1">Brands</h1>
+  <hr style="width:50% ; border: 1px solid #ddd;">
   <section id="brand" class="brand-container">
     <div class="brand-row">
       <img class="brand-img" src=" assets/imgs/brand1.jpg" alt="">

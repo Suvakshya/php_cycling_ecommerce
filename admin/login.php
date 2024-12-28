@@ -69,8 +69,8 @@ if (isset($_POST['login_btn'])) {
 <!--------------------- login ----------------------->
 <section class="login-section">
     <div class="login-container ">
-      <h2 class="login-text">Login</h2>
-      <hr class="login-hr">
+      <h2 class="login-text">Login <hr style="width: 70px; border: 2px solid #ff7f50;"></h2>
+      
     </div>
     <div class=".login-form-container">
       <form id="login-form" method="POST" action="login.php">

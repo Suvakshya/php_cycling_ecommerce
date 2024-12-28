@@ -79,16 +79,16 @@
       <div class="navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="./index.php">dashboard</a>
+            <a class="nav-link" href="./index.php">Order</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./order.php">order</a>
+            <a class="nav-link" href="./account.php">Accounts</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="./products.php">All product</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Add new product</a>
+            <a class="nav-link"  href="./add_product.php">Add new product</a>
           </li>
           <!-- Updated logout link -->
           <li class="nav-item">
@@ -102,7 +102,32 @@
   <!-------------------- orders ------------------------->
   <section style="margin:100px"  id="orders-container">
     <div class="orders-cart-container">
-      <h2 class="orders-cart-font-weight-bolde" id="order-title"style="margin-top:120px">Your Orders</h2>
+      <h2 class="orders-cart-font-weight-bolde" id="order-title"style="margin-top:120px">Your Orders  <hr style="width: 70px; border: 2px solid #ff7f50;"></h2>
+
+      <?php if(isset($_GET['edit_success_message'])){?>
+      <p style="color:green">
+        <?php echo $_GET['edit_success_message'];?>
+      </p>
+      <?php }?>
+
+      <?php if(isset($_GET['edit_failure_message'])){?>
+      <p style="color:red">
+        <?php echo $_GET['edit_failure_message'];?>
+      </p>
+      <?php }?>
+
+      <?php if(isset($_GET['deleted_successfully'])){?>
+      <p style="color:green">
+        <?php echo $_GET['deleted_successfully'];?>
+      </p>
+      <?php }?>
+
+      <?php if(isset($_GET['deleted_failure'])){?>
+      <p style="color:red">
+        <?php echo $_GET['deleted_failure'];?>
+      </p>
+      <?php }?>
+
     </div>
     <table class="orders-cart-table">
       <tr>
@@ -179,7 +204,7 @@
           <a class="edit-btn" href="edit_order.php?order_id=<?php echo $row['order_id'];?>">edit</a>
         </td>
         <td>
-          <a class="delete-btn" href="edit_product.php?product_id=<?php echo $row['order_id'];?>">delete</a>
+          <a class="delete-btn" href="delete_order.php?order_id=<?php echo $row['order_id'];?>">delete</a>
         </td>
        
 

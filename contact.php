@@ -47,14 +47,15 @@
   <section id="contact">
     <div class="contact-container">
       <h3 class="contact-h3">Contact us</h3>
-      <hr class="contact-hr">
-      <p class="contact-p">
+      
+      <hr style="width:50% ; border: 1px solid #ddd;">
+      <p class="contact-p" style="margin-left: 480px;">
         phone number: <span>123 456 789</span>
       </p>
-      <p class="contact-p">
+      <p class="contact-p" style="margin-left: 480px;">
         Email : <span>info@gmail.com</span>
       </p>
-      <p class="contact-p">
+      <p class="contact-p" style="margin-left: 480px;">
         we work 24/7 to answer your question
       </p>
     </div>
