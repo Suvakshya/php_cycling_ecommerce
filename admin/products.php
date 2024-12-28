@@ -9,9 +9,9 @@
 <?php
  include('../server/connection.php');
 
-  $stmt = $conn->prepare("SELECT * FROM orders ");
+  $stmt = $conn->prepare("SELECT * FROM products ");
   $stmt->execute();
-  $orders = $stmt->get_result();//[]
+  $products = $stmt->get_result();//[]
 
 ?>
 
@@ -21,7 +21,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin dashboard</title>
+  <title>Admin products</title>
   <!-- Font Awesome link -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
   <link rel="stylesheet" href="../assets/css/index.css">
@@ -100,27 +100,51 @@
   </nav>
 
   <!-------------------- orders ------------------------->
-  <section style="margin:100px"  id="orders-container">
-    <div class="orders-cart-container">
-      <h2 class="orders-cart-font-weight-bolde" id="order-title"style="margin-top:120px">Your Orders</h2>
+  <section style=" margin:50px;margin-top:150px;" id="orders-container">
+    <div style="margin-top:100px;" class="orders-cart-container">
+      <h2 class="orders-cart-font-weight-bolde" id="order-title">Admin Products</h2>
+
+      <?php if(isset($_GET['edit_success_message'])){?>
+      <p style="color:green">
+        <?php echo $_GET['edit_success_message'];?>
+      </p>
+      <?php }?>
+
+      <?php if(isset($_GET['edit_failure_message'])){?>
+      <p style="color:red">
+        <?php echo $_GET['edit_failure_message'];?>
+      </p>
+      <?php }?>
+
+      <?php if(isset($_GET['deleted_successfully'])){?>
+      <p style="color:green">
+        <?php echo $_GET['deleted_successfully'];?>
+      </p>
+      <?php }?>
+
+      <?php if(isset($_GET['deleted_failure'])){?>
+      <p style="color:red">
+        <?php echo $_GET['deleted_failure'];?>
+      </p>
+      <?php }?>
+
     </div>
     <table class="orders-cart-table">
       <tr>
-        <th>Order Id</th>
-        <!-- <th>Login User Id</th> -->
-        <th>User name</th>
-        <th>Order Status</th>
-        <th>Order Cost</th>
-        <th>Order Date</th>
-        <th>User Phone</th>
-        <th>User Address</th>
+        <th>Product Id</th>
+        <th>Product Image</th>
+        <th>Product Name</th>
+        <th>Product Price</th>
+        <th>Product Offer</th>
+        <th>Product Category</th>
+        <th>Product Color</th>
         <th>Edit</th>
         <th>Delete</th>
       </tr>
 
 
       <?php
-       while($row = $orders->fetch_assoc()){
+       while($row = $products->fetch_assoc()){
        ?>
 
 
@@ -130,58 +154,51 @@
             <!-- <img src="assets/imgs/cycle1.jpeg" alt=""> -->
             <div>
               <p class="orders-p">
-                <?php echo $row['order_id'];?>
+                <?php echo $row['product_id'];?>
               </p>
             </div>
           </div>
         </td>
 
-        <!-- <td>
-          <span>
-            <?php echo $row['user_id'];?>
-          </span>
-        </td> -->
-
         <td>
-          <span>
-            <?php echo $row['user_name'];?>
-          </span>
+          <div class="orders-product-info">
+            <img src="../assets/imgs/<?php echo $row['product_image']; ?>" alt="">
+          </div>
         </td>
 
         <td>
           <span>
-            <?php echo $row['order_status'];?>
+            <?php echo $row['product_name'];?>
           </span>
+        </td>
+        <td>
+          <span>
+            <?php echo $row['product_price'];?>
+          </span>
+        </td>
+        <td>
+          <span>
+            <?php echo $row['product_special_offer'];?>
+          </span>
+        </td>
+        <td>
+          <span>
+            <?php echo $row['product_category'];?>
+          </span>
+        </td>
+        <td>
+          <span>
+            <?php echo $row['product_color'];?>
+          </span>
+        </td>
+        <td>
+          <a class="edit-btn" href="edit_product.php?product_id=<?php echo $row['product_id']; ?>">edit</a>
+        </td>
+        <td>
+          <a class="delete-btn" href="delete_product.php?product_id=<?php echo $row['product_id']; ?>">delete</a>
         </td>
 
         <td>
-          <span>
-            <?php echo $row['order_cost'];?>
-          </span>
-        </td>
-
-        <td>
-          <span>
-            <?php echo $row['order_date'];?>
-          </span>
-        </td>
-        <td>
-          <span>
-            <?php echo $row['user_phone'];?>
-          </span>
-        </td>
-        <td>
-          <span>
-            <?php echo $row['user_address'];?>
-          </span>
-        </td>
-        <td>
-          <a class="edit-btn" href="edit_order.php?order_id=<?php echo $row['order_id'];?>">edit</a>
-        </td>
-        <td>
-          <a class="delete-btn" href="edit_product.php?product_id=<?php echo $row['order_id'];?>">delete</a>
-        </td>
-       
 
       </tr>
 

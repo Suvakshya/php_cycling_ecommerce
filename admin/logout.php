@@ -2,6 +2,13 @@
 
 session_start();
 
+include('../server/connection.php');
+
+// if(isset($_SESSION['admin_logged_in'])){
+//   header('location:index.php');
+//   exit;
+// }
+
 if(isset($_GET['logout'])){
   if(isset($_SESSION['admin_logged_in'])){
     unset($_SESSION['admin_logged_in']);
