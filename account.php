@@ -34,8 +34,9 @@ else if (strlen($password) < 6) {
 } 
 //if no eror 
 else{
-$stmt = $conn->prepare("UPDATE users SET user_password=? WHERE user_email =?");
-$stmt->bind_param("ss",md5($password),$user_email);
+
+$stmt = $conn->prepare("UPDATE users SET user_password=? WHERE user_email=?");
+$stmt->bind_param("ss", password_hash($password, PASSWORD_DEFAULT), $user_email);
 
 if($stmt->execute()){
   header('location:account.php?message=password has been updated successfully');
